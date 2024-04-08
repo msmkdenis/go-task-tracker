@@ -9,6 +9,7 @@ type TaskRepository interface {
 	SelectAllByDate(date string) ([]model.Task, error)
 	SelectByID(id int64) (model.Task, error)
 	UpdateByID(task model.Task) error
+	DeleteByID(id int64) error
 }
 
 type TaskService struct {
@@ -43,4 +44,8 @@ func (t *TaskService) GetTaskByID(id int64) (model.Task, error) {
 
 func (t *TaskService) UpdateTaskByID(task model.Task) error {
 	return t.Repository.UpdateByID(task)
+}
+
+func (t *TaskService) DeleteTaskByID(id int64) error {
+	return t.Repository.DeleteByID(id)
 }

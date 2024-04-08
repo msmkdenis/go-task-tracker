@@ -13,6 +13,7 @@ type TaskService interface {
 	GetTasksByTitle(title string) ([]model.Task, error)
 	GetTaskByID(id int64) (model.Task, error)
 	UpdateTaskByID(task model.Task) error
+	DeleteTaskByID(id int64) error
 }
 
 type TaskHandlers struct {
@@ -24,11 +25,16 @@ func NewTaskHandlers(e *echo.Echo, service TaskService) *TaskHandlers {
 		Service: service,
 	}
 
-	e.GET("/api/nextdate", handler.CalculateNextDate)
 	e.POST("/api/task", handler.AddTask)
+	e.POST("/api/task/done", handler.CompleteTaskByID)
+
+	e.PUT("/api/task", handler.UpdateTaskByID)
+
 	e.GET("/api/tasks", handler.LoadTasks)
 	e.GET("/api/task", handler.LoadTaskByID)
-	e.PUT("/api/task", handler.UpdateTaskByID)
+	e.GET("/api/nextdate", handler.CalculateNextDate)
+
+	e.DELETE("/api/task", handler.DeleteTaskByID)
 
 	return handler
 }

@@ -8,13 +8,11 @@ import (
 	"os"
 	"time"
 
-	"github.com/msmkdenis/go-task-tracker/internal/repository"
-
-	"github.com/msmkdenis/go-task-tracker/internal/middleware"
-
 	"github.com/labstack/echo/v4"
 
 	"github.com/msmkdenis/go-task-tracker/internal/config"
+	"github.com/msmkdenis/go-task-tracker/internal/middleware"
+	"github.com/msmkdenis/go-task-tracker/internal/repository"
 	"github.com/msmkdenis/go-task-tracker/internal/service"
 	"github.com/msmkdenis/go-task-tracker/internal/storage"
 	"github.com/msmkdenis/go-task-tracker/internal/transport"
