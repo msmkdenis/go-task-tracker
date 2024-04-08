@@ -8,6 +8,8 @@ import (
 	"os"
 	"time"
 
+	"github.com/msmkdenis/go-task-tracker/internal/repository"
+
 	"github.com/msmkdenis/go-task-tracker/internal/middleware"
 
 	"github.com/labstack/echo/v4"
@@ -33,7 +35,7 @@ func Run(quitSignal chan os.Signal) {
 		os.Exit(1)
 	}
 
-	taskRepository := storage.NewSQLiteTaskRepository(database)
+	taskRepository := repository.NewSQLiteTaskRepository(database)
 	taskService := service.NewTaskService(taskRepository)
 
 	requestLogger := middleware.NewRequestLogger()

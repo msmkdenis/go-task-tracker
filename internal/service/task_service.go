@@ -4,6 +4,9 @@ import "github.com/msmkdenis/go-task-tracker/internal/model"
 
 type TaskRepository interface {
 	Insert(task model.Task) (int64, error)
+	SelectAll() ([]model.Task, error)
+	SelectAllByTitle(title string) ([]model.Task, error)
+	SelectAllByDate(date string) ([]model.Task, error)
 }
 
 type TaskService struct {
@@ -18,4 +21,16 @@ func NewTaskService(repository TaskRepository) *TaskService {
 
 func (t *TaskService) AddTask(task model.Task) (int64, error) {
 	return t.Repository.Insert(task)
+}
+
+func (t *TaskService) GetTasks() ([]model.Task, error) {
+	return t.Repository.SelectAll()
+}
+
+func (t *TaskService) GetTasksByDate(date string) ([]model.Task, error) {
+	return t.Repository.SelectAllByDate(date)
+}
+
+func (t *TaskService) GetTasksByTitle(title string) ([]model.Task, error) {
+	return t.Repository.SelectAllByTitle(title)
 }

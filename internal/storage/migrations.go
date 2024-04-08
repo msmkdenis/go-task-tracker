@@ -25,7 +25,7 @@ func NewMigrations(db *SQLiteDB) *Migrations {
 	goose.SetBaseFS(embedMigrations)
 
 	return &Migrations{
-		db: db.db,
+		db: db.DB,
 	}
 }
 

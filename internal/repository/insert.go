@@ -1,4 +1,4 @@
-package storage
+package repository
 
 import (
 	"database/sql"
@@ -6,21 +6,11 @@ import (
 	"github.com/msmkdenis/go-task-tracker/internal/model"
 )
 
-type SQLiteTaskRepository struct {
-	db *sql.DB
-}
-
-func NewSQLiteTaskRepository(db *SQLiteDB) *SQLiteTaskRepository {
-	return &SQLiteTaskRepository{
-		db: db.db,
-	}
-}
-
 func (t *SQLiteTaskRepository) Insert(task model.Task) (int64, error) {
 	res, err := t.db.Exec(
 		`
 		insert into scheduler 
-		    (date, title, comment, repeat) 
+			(date, title, comment, repeat) 
 		values 
 		    (:date, :title, :comment, :repeat)
 		`,

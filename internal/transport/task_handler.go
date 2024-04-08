@@ -8,6 +8,9 @@ import (
 
 type TaskService interface {
 	AddTask(task model.Task) (int64, error)
+	GetTasks() ([]model.Task, error)
+	GetTasksByDate(date string) ([]model.Task, error)
+	GetTasksByTitle(title string) ([]model.Task, error)
 }
 
 type TaskHandlers struct {
@@ -21,6 +24,7 @@ func NewTaskHandlers(e *echo.Echo, service TaskService) *TaskHandlers {
 
 	e.GET("/api/nextdate", handler.CalculateNextDate)
 	e.POST("/api/task", handler.AddTask)
+	e.GET("/api/tasks", handler.LoadTasks)
 
 	return handler
 }

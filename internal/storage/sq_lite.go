@@ -7,7 +7,7 @@ import (
 )
 
 type SQLiteDB struct {
-	db *sql.DB
+	DB *sql.DB
 }
 
 func NewSQLiteDB() *SQLiteDB {
@@ -18,6 +18,6 @@ func NewSQLiteDB() *SQLiteDB {
 	}
 
 	return &SQLiteDB{
-		db: db,
+		DB: db,
 	}
 }
