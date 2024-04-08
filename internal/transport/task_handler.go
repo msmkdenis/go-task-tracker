@@ -20,6 +20,7 @@ func NewTaskHandlers(e *echo.Echo, service TaskService) *TaskHandlers {
 	}
 
 	e.GET("/api/nextdate", handler.CalculateNextDate)
+	e.POST("/api/task", handler.AddTask)
 
 	return handler
 }

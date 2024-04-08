@@ -1,7 +1,7 @@
 -- +goose Up
 create table if not exists scheduler (
     id integer primary key,
-    date date not null,
+    date text not null,
     title text not null,
     comment text not null,
     repeat char(128) not null
