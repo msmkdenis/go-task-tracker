@@ -7,6 +7,7 @@ type TaskRepository interface {
 	SelectAll() ([]model.Task, error)
 	SelectAllByTitle(title string) ([]model.Task, error)
 	SelectAllByDate(date string) ([]model.Task, error)
+	SelectByID(id int64) (model.Task, error)
 }
 
 type TaskService struct {
@@ -33,4 +34,8 @@ func (t *TaskService) GetTasksByDate(date string) ([]model.Task, error) {
 
 func (t *TaskService) GetTasksByTitle(title string) ([]model.Task, error) {
 	return t.Repository.SelectAllByTitle(title)
+}
+
+func (t *TaskService) GetTaskByID(id int64) (model.Task, error) {
+	return t.Repository.SelectByID(id)
 }

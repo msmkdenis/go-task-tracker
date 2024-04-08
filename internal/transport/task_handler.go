@@ -11,6 +11,7 @@ type TaskService interface {
 	GetTasks() ([]model.Task, error)
 	GetTasksByDate(date string) ([]model.Task, error)
 	GetTasksByTitle(title string) ([]model.Task, error)
+	GetTaskByID(id int64) (model.Task, error)
 }
 
 type TaskHandlers struct {
@@ -25,6 +26,7 @@ func NewTaskHandlers(e *echo.Echo, service TaskService) *TaskHandlers {
 	e.GET("/api/nextdate", handler.CalculateNextDate)
 	e.POST("/api/task", handler.AddTask)
 	e.GET("/api/tasks", handler.LoadTasks)
+	e.GET("/api/task", handler.LoadTaskByID)
 
 	return handler
 }
