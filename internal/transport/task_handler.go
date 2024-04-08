@@ -15,7 +15,11 @@ type TaskHandlers struct {
 }
 
 func NewTaskHandlers(e *echo.Echo, service TaskService) *TaskHandlers {
-	return &TaskHandlers{
+	handler := &TaskHandlers{
 		Service: service,
 	}
+
+	e.GET("/api/nextdate", handler.CalculateNextDate)
+
+	return handler
 }
