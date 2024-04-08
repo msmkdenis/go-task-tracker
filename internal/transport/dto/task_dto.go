@@ -6,7 +6,15 @@ import (
 	"github.com/msmkdenis/go-task-tracker/internal/model"
 )
 
-type TaskRequest struct {
+type PostTaskRequest struct {
+	Date    string `json:"date"`
+	Title   string `json:"title"`
+	Comment string `json:"comment"`
+	Repeat  string `json:"repeat"`
+}
+
+type PutTaskRequest struct {
+	ID      string `json:"id"`
 	Date    string `json:"date"`
 	Title   string `json:"title"`
 	Comment string `json:"comment"`

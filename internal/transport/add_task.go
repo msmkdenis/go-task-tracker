@@ -13,7 +13,7 @@ import (
 )
 
 func (h *TaskHandlers) AddTask(c echo.Context) error {
-	var taskRequest dto.TaskRequest
+	var taskRequest dto.PostTaskRequest
 	err := c.Bind(&taskRequest)
 	if err != nil {
 		slog.Error("failed to bind task", slog.String("error", err.Error()))
