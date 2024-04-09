@@ -1,3 +1,5 @@
+# docker build --tag go-task-tracker .
+# docker run -d -p 7540:7540 -v host-volume:/db go-task-tracker
 FROM golang:1.22-alpine AS builder
 
 # Создаем и переходим в директорию приложения.
