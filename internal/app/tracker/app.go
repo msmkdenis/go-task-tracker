@@ -18,7 +18,6 @@ import (
 	"github.com/msmkdenis/go-task-tracker/internal/transport/signin"
 	"github.com/msmkdenis/go-task-tracker/internal/transport/task"
 	"github.com/msmkdenis/go-task-tracker/pkg/jwtgen"
-	"github.com/msmkdenis/go-task-tracker/tests"
 )
 
 func Run(quitSignal chan os.Signal) {
@@ -27,7 +26,7 @@ func Run(quitSignal chan os.Signal) {
 
 	cfg := config.New()
 
-	database := storage.NewSQLiteDB()
+	database := storage.NewSQLiteDB(cfg.DBFile)
 	migrations := storage.NewMigrations(database)
 	err := migrations.Up()
 	if err != nil {
@@ -53,7 +52,6 @@ func Run(quitSignal chan os.Signal) {
 	httpServerCtx, httpServerStopCtx := context.WithCancel(context.Background())
 
 	go func() {
-		slog.Info("staring server", slog.Int("localhost:", tests.Port))
 		errStart := e.Start(cfg.URLServer)
 		if errStart != nil && !errors.Is(errStart, http.ErrServerClosed) {
 			slog.Error("failed to start server", slog.String("error", errStart.Error()))

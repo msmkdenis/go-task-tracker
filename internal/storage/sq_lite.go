@@ -10,8 +10,8 @@ type SQLiteDB struct {
 	DB *sql.DB
 }
 
-func NewSQLiteDB() *SQLiteDB {
-	db, err := sql.Open("sqlite", "scheduler.db")
+func NewSQLiteDB(dbFile string) *SQLiteDB {
+	db, err := sql.Open("sqlite", dbFile)
 	if err != nil {
 		slog.Error("failed to open database", "error", err)
 		os.Exit(1)

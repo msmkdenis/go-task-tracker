@@ -12,6 +12,7 @@ type Config struct {
 	Secret    string
 	TokenTTL  int
 	Salt      string
+	DBFile    string
 }
 
 func New() *Config {
@@ -23,7 +24,7 @@ func New() *Config {
 
 func (c *Config) parseFlags() {
 	var URLServer string
-	flag.StringVar(&URLServer, "s", "localhost:7540", "Enter URLServer as ip_address:port Or use SERVER_ADDRESS env")
+	flag.StringVar(&URLServer, "s", ":7540", "Enter URLServer as ip_address:port Or use SERVER_ADDRESS env")
 	var TokenName string
 	flag.StringVar(&TokenName, "t", "token", "Enter token name Or use TOKEN_NAME env")
 	var SecretKey string
@@ -32,12 +33,15 @@ func (c *Config) parseFlags() {
 	flag.IntVar(&TokenTTL, "l", 8, "Enter token ttl in hours Or use TOKEN_TTL env")
 	var Salt string
 	flag.StringVar(&Salt, "a", "super-salty-salt", "Enter salt Or use SALT env")
+	var DBFile string
+	flag.StringVar(&DBFile, "d", "scheduler.db", "Enter salt Or use SALT env")
 	flag.Parse()
 	c.URLServer = URLServer
 	c.TokenName = TokenName
 	c.Secret = SecretKey
 	c.TokenTTL = TokenTTL
 	c.Salt = Salt
+	c.DBFile = DBFile
 }
 
 func (c *Config) parseEnv() {
@@ -58,6 +62,9 @@ func (c *Config) parseEnv() {
 		c.TokenTTL = tokenTTL
 	}
 	if envSalt := os.Getenv("SALT"); envSalt != "" {
-		c.Secret = envSalt
+		c.Salt = envSalt
+	}
+	if envDBFile := os.Getenv("DB_FILE"); envDBFile != "" {
+		c.DBFile = envDBFile
 	}
 }
