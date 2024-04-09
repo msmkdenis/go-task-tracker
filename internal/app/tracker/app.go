@@ -15,7 +15,9 @@ import (
 	"github.com/msmkdenis/go-task-tracker/internal/repository"
 	"github.com/msmkdenis/go-task-tracker/internal/service"
 	"github.com/msmkdenis/go-task-tracker/internal/storage"
-	"github.com/msmkdenis/go-task-tracker/internal/transport"
+	"github.com/msmkdenis/go-task-tracker/internal/transport/signin"
+	"github.com/msmkdenis/go-task-tracker/internal/transport/task"
+	"github.com/msmkdenis/go-task-tracker/pkg/jwtgen"
 	"github.com/msmkdenis/go-task-tracker/tests"
 )
 
@@ -33,6 +35,9 @@ func Run(quitSignal chan os.Signal) {
 		os.Exit(1)
 	}
 
+	jwtManager := jwtgen.NewJWTManager(cfg.TokenName, cfg.Secret, cfg.TokenTTL, cfg.Salt)
+	jwtAuth := middleware.InitJWTAuth(jwtManager, cfg.Secret)
+
 	taskRepository := repository.NewSQLiteTaskRepository(database)
 	taskService := service.NewTaskService(taskRepository)
 
@@ -42,7 +47,8 @@ func Run(quitSignal chan os.Signal) {
 	e.Use(requestLogger.Get())
 	e.Static("/", "web")
 
-	transport.NewTaskHandlers(e, taskService)
+	task.NewHandlers(e, taskService, jwtAuth)
+	signin.NewHandlers(e, jwtManager, cfg.Secret)
 
 	httpServerCtx, httpServerStopCtx := context.WithCancel(context.Background())
 

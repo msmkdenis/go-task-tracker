@@ -1,4 +1,4 @@
-package transport
+package task
 
 import (
 	"errors"
@@ -13,7 +13,7 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-func (h *TaskHandlers) CompleteTaskByID(c echo.Context) error {
+func (h *Handlers) CompleteTaskByID(c echo.Context) error {
 	id, err := strconv.ParseInt(c.QueryParam("id"), 10, 64)
 	if err != nil {
 		slog.Info("failed to parse id", slog.String("error", err.Error()))

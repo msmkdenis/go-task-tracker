@@ -1,4 +1,4 @@
-package transport
+package task
 
 import (
 	"errors"
@@ -13,7 +13,7 @@ import (
 	"github.com/msmkdenis/go-task-tracker/internal/transport/dto"
 )
 
-func (h *TaskHandlers) LoadTaskByID(c echo.Context) error {
+func (h *Handlers) LoadTaskByID(c echo.Context) error {
 	id, err := strconv.ParseInt(c.QueryParam("id"), 10, 64)
 	if err != nil {
 		slog.Info("failed to parse id", slog.String("error", err.Error()))

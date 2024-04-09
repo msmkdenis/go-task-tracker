@@ -1,4 +1,4 @@
-package transport
+package task
 
 import (
 	"errors"
@@ -12,8 +12,7 @@ import (
 	"github.com/msmkdenis/go-task-tracker/internal/model"
 )
 
-func (h *TaskHandlers) DeleteTaskByID(c echo.Context) error {
-	fmt.Println("========================")
+func (h *Handlers) DeleteTaskByID(c echo.Context) error {
 	id, err := strconv.ParseInt(c.QueryParam("id"), 10, 64)
 	if err != nil {
 		slog.Info("failed to parse id", slog.String("error", err.Error()))

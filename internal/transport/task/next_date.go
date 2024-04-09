@@ -1,4 +1,4 @@
-package transport
+package task
 
 import (
 	"log/slog"
@@ -41,7 +41,7 @@ var month = map[int]string{
 	12: "December",
 }
 
-func (h *TaskHandlers) CalculateNextDate(c echo.Context) error {
+func (h *Handlers) CalculateNextDate(c echo.Context) error {
 	date, err := time.Parse("20060102", c.FormValue(dateParam))
 	if err != nil {
 		slog.Info("failed to parse date", slog.String("error", err.Error()))

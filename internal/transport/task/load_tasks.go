@@ -1,4 +1,4 @@
-package transport
+package task
 
 import (
 	"log/slog"
@@ -11,7 +11,7 @@ import (
 	"github.com/msmkdenis/go-task-tracker/internal/transport/dto"
 )
 
-func (h *TaskHandlers) LoadTasks(c echo.Context) error {
+func (h *Handlers) LoadTasks(c echo.Context) error {
 	var (
 		tasks []model.Task
 		err   error
