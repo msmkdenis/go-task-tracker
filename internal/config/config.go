@@ -30,7 +30,7 @@ func (c *Config) parseFlags() {
 	var SecretKey string
 	flag.StringVar(&SecretKey, "k", "secret", "Enter secret Or use SECRET_KEY env")
 	var TokenTTL int
-	flag.IntVar(&TokenTTL, "l", 8, "Enter token ttl in hours Or use TOKEN_TTL env")
+	flag.IntVar(&TokenTTL, "l", 64, "Enter token ttl in hours Or use TOKEN_TTL env")
 	var Salt string
 	flag.StringVar(&Salt, "a", "super-salty-salt", "Enter salt Or use SALT env")
 	var DBFile string
