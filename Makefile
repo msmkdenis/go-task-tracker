@@ -1,5 +1,11 @@
 .PHONY: all
 
+run:
+	go run cmd/tracker/main.go
+
+test:
+	go test ./tests
+
 image-build:
 	docker build --tag go-task-tracker .
 
